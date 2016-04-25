@@ -8,6 +8,11 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 
 
+
+
+
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(ejsLayout);
@@ -58,7 +63,7 @@ app.post('/search', function(req,res){
 
 
 
-
+app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
 
 app.listen(3000);

@@ -43,3 +43,32 @@ var longitude;
 });
 
 //disable button until page done loading and geoFindMe is done
+
+
+//Start search when button is clicked
+
+$('#search_btn').click(function(e){
+
+  $.ajax({
+    url: '/yelp/search',
+    method: 'GET',
+    data: {
+      longitude: longitude,
+      latitude: latitude,
+    },
+    success: function(xhr, status, data){
+      console.log(data);
+    }
+  })
+
+});
+
+
+
+
+
+
+
+
+
+
