@@ -1,1 +1,9 @@
-<h1> TEST TEST TEST </h1>
+<h1> Wino911 </h1>
+
+
+<%if (!currentUser) { %>
+<a href="/auth/signup" class="btn btn-primary">Signup</a>
+<a href="/auth/login" class="btn btn-primary">Login</a>
+<% } %>
+<a href="/search" class="btn btn-primary">Secret page</a>
+<a href="auth/logout" class="btn btn-primary">Sign Out</a>

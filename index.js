@@ -5,13 +5,14 @@ var db = require("./models");
 var ejsLayout = require("express-ejs-layouts");
 var request = require('request');
 var bodyParser = require('body-parser');
-
-
+var flash = require('connect-flash');
 
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(ejsLayout);
+app.use(express.static(__dirname + '/static'));
+app.use(flash());
 
 app.use(session({
   secret: 'Super secrettttt',
@@ -19,20 +20,37 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use('/auth', require('./controllers/auth'));
-
-
+app.use(function(req,res,next){
+  if(req.session.userId){
+    db.user.findById(req.session.userId).then(function(user){
+      req.currentUser = user;
+      res.locals.currentUser = user;
+      next();
+    });
+  } else {
+    req.currentUser = false;
+    res.locals.currentUser = false;
+    next();
+  }
+})
 
 app.get('/', function(req, res) {
-  console.log(req.session);
-//   // you can now access the newly created task via the variable data
+  res.render('index', {alerts: req.flash()});
+});
 
-res.render('index');
 
+app.get('/search', function(req, res) {
+  if(req.currentUser) {
+    res.render('search');
+  } else {
+    req.flash('danger', 'You must be loggd in!'); 
+    res.redirect('/');
+  }
 });
 
 
 
 
+app.use('/auth', require('./controllers/auth'));
 
 app.listen(3000);

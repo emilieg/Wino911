@@ -23,14 +23,13 @@ router.post('/signup', function(req, res) {
 
 
 router.get('/login', function(req, res) {
-  console.log(req.session);
   res.render('auth/login');
 });
 
 router.post('/login', function(req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  
+
 
   db.user.authenticate(email, password, function(err, user) {
     if(err) {
