@@ -38,7 +38,7 @@ router.post('/login', function(req, res) {
       // console.log(req.session);
       req.session.userId = user.id;
 
-      res.redirect('/');
+      res.redirect('/search');
     } else {
       res.send('user and/or password invalid');
     }
