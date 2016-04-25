@@ -22,32 +22,34 @@ router.post('/signup', function(req, res) {
 });
 
 
+router.get('/login', function(req, res) {
+  console.log(req.session);
+  res.render('auth/login');
+});
 
+router.post('/login', function(req, res) {
+  var email = req.body.email;
+  var password = req.body.password;
+  
 
-// router.get('/login', function(req, res) {
-//   res.render('auth/login');
-// });
+  db.user.authenticate(email, password, function(err, user) {
+    if(err) {
+      res.send(err);
+    } else if (user){
+      // console.log(req.session);
+      req.session.userId = user.id;
 
-// router.post('/login', function(req, res) {
-//   var email = req.body.email;
-//   var password = req.body.password;
+      res.redirect('/');
+    } else {
+      res.send('user and/or password invalid');
+    }
+  });
+});
 
-//   db.user.authenticate(email, password, function(err, user) {
-//     if(err) {
-//       res.send(err);
-//     } else if (user){
-//       req.session.userId = user.id;
-//       res.redirect('/');
-//     } else {
-//       res.send('user and/or password invalid');
-//     }
-//   });
-// });
-
-// router.get('/logout', function(req,res){
-//   req.session.userId = false;
-//   res.redirect('/');
-// });
+router.get('/logout', function(req,res){
+  req.session.userId = false;
+  res.redirect('/');
+});
 
 
 
