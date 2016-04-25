@@ -49,6 +49,14 @@ app.get('/search', function(req, res) {
 });
 
 
+app.post('/search', function(req,res){
+  res.render('search');
+})
+
+
+
+
+
 
 
 app.use('/auth', require('./controllers/auth'));
