@@ -68,6 +68,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 var latitude;
 var longitude;
+var lt;
+var ld;
+
 
 //PAGE LOADS 
 //FIND MY LOCATION
@@ -123,9 +126,15 @@ function callYelp(){
       latitude: latitude,
     },
     success: function(xhr, status, returnData){
-      console.log('success data ' , returnData);
       var parsed_obj = JSON.parse(returnData.responseText);
-      console.log(parsed_obj);
+      var business = parsed_obj.business_name;
+      console.log(business);
+      lt = parsed_obj.latitude;
+      console.log(latitude);
+      ld = parsed_obj.longitude;
+      console.log(longitude);
+      var address = parsed_obj.address;
+      console.log(address);
       initMap();    
     }
   })
@@ -142,7 +151,10 @@ function initMap() {
         console.log('latitude' + latitude + 'longitude' + longitude);
                                            
         var myLatlng = new google.maps.LatLng(latitude,longitude); 
-        console.log(myLatlng);                                     
+        console.log(myLatlng);  
+
+        var desLatlng = new google.maps.LatLng(lt,ld);
+        console.log('desLatlng', desLatlng);                                  
         
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -170,7 +182,7 @@ function initMap() {
         console.log('inside calculateAndDisplayRoute');
         directionsService.route({
           origin: myLatlng,
-          destination: 'Chicago',
+          destination: desLatlng,
           travelMode: google.maps.TravelMode.DRIVING
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
