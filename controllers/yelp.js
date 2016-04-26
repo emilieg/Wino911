@@ -24,12 +24,13 @@ yelp.search({ term: 'wine', ll: ll, sort: 1 })
 
   var returnData = {
     'business_name': data.businesses[0].name,
-    'coordinate': data.businesses[0].location.coordinate,
+    'latitude': data.businesses[0].location.coordinate.latitude,
+    'longitude': data.businesses[0].location.coordinate.longitude,
     'address': data.businesses[0].location.address[0],
     'distance': data.businesses[0].distance
   }
 
-  console.log(returnData);
+  console.log('returnData:' +returnData);
   res.send(returnData);
 
 })

@@ -54,7 +54,6 @@ app.get('/search', function(req, res) {
 });
 
 
-
 app.get('/result',function(req,res){
   res.render('result');
 })

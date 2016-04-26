@@ -72,12 +72,13 @@ var longitude;
 //PAGE LOADS 
 //FIND MY LOCATION
 $( document ).ready(function() {
-  loadMap();
+  getCoord();
 
 });
 
 
-function loadMap (){
+function getCoord (){
+  ('inside getCoord');
   navigator.geolocation.getCurrentPosition(success, error);
 };
 
@@ -87,6 +88,9 @@ function loadMap (){
     console.log("latitude & longitude: " + latitude + longitude);
     if (latitude && longitude){
     callYelp();
+    console.log('calling Yelp' + callYelp);
+    // initMap();
+    console.log('calling initMap' + initMap);
   } else {
     throw ("could not locate")
   }
@@ -118,8 +122,11 @@ function callYelp(){
       longitude: longitude,
       latitude: latitude,
     },
-    success: function(xhr, status, data){
-      console.log('data inside callYelp' + data);
+    success: function(xhr, status, returnData){
+      console.log('success data ' , returnData);
+      var parsed_obj = JSON.parse(returnData.responseText);
+      console.log(parsed_obj);
+      initMap();    
     }
   })
   }
@@ -127,23 +134,53 @@ function callYelp(){
 
 //ONCE COORDINATES from YELP ARE RECEIVED CALL GOOGLE DIRECTIONS
 
-// var directions= DirectionsService {
-//   origin: LatLng | String | google.maps.Place,
-//   destination: LatLng | String | google.maps.Place,
-//   travelMode: google.maps.TravelMode.WALKING,
-//   transitOptions: TransitOptions,
-//   drivingOptions: DrivingOptions,
-//   unitSystem: UnitSystem,
-//   waypoints[]: DirectionsWaypoint,
-//   optimizeWaypoints: Boolean,
-//   provideRouteAlternatives: Boolean,
-//   avoidHighways: Boolean,
-//   avoidTolls: Boolean,
-//   region: String
-// }
 
 
 
+function initMap() {
+        if (latitude && longitude) {
+        console.log('latitude' + latitude + 'longitude' + longitude);
+                                           
+        var myLatlng = new google.maps.LatLng(latitude,longitude); 
+        console.log(myLatlng);                                     
+        
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        
+        directionsDisplay.setMap(map);
+
+
+        var onChangeHandler = function() {
+          console.log('inside OnChangeHandler')
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        };
+
+        if (myLatlng) {
+          onChangeHandler();
+        }
+
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        console.log('inside calculateAndDisplayRoute');
+        directionsService.route({
+          origin: myLatlng,
+          destination: 'Chicago',
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+      }
 
 
 
