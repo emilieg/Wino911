@@ -54,10 +54,10 @@ app.get('/search', function(req, res) {
 });
 
 
-app.post('/search', function(req,res){
-  res.render('search');
-})
 
+app.get('/result',function(req,res){
+  res.render('result');
+})
 
 
 

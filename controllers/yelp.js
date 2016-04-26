@@ -18,7 +18,7 @@ router.get('/search', function (req,res) {
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
   var ll= latitude + ',' + longitude;
-
+  console.log(ll);
 yelp.search({ term: 'wine', ll: ll })
 .then(function (data) {
 
@@ -26,6 +26,7 @@ yelp.search({ term: 'wine', ll: ll })
     'business_name': data.businesses[0].name,
     'address': data.businesses[0].location.coordinate
   }
+
   console.log(returnData);
   res.send(returnData);
 
@@ -35,8 +36,8 @@ yelp.search({ term: 'wine', ll: ll })
 });
 }) 
 
-//https://api.yelp.com/v2/search?term=german+food&location=Hayes&cll=37.77493,-122.419415
 
+//https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAMZl2e4nsvl_7SniQQlGa5_F74LW2hcWQ
 
 
 
