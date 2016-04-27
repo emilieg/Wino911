@@ -5,7 +5,7 @@ var longitude;
 var latt;
 var lng;
 var place;
-var place_id;
+var place_id={};
 // var des = new google.maps.Place('4f89212bf76dde31f092cfc14d7506555d85b5c7');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,13 +29,13 @@ var place_id;
 //   });
 // }
 
- var marker = new google.maps.Marker({
-      map: map,
-      place: {
-        placeId: results[0].place_id,
-        location: results[0].geometry.location
-      }
-    });
+ // var marker = new google.maps.Marker({
+ //      map: map,
+ //      place: {
+ //        placeId: results[0].place_id,
+ //        location: results[0].geometry.location
+ //      }
+ //    });
 
 
 
@@ -57,7 +57,7 @@ function getCoord (){
      longitude = position.coords.longitude;
     console.log("latitude & longitude: " + latitude + longitude);
     if (latitude && longitude){
-    callYelp();
+    callGooglePlaces();
   
   } else {
     throw ("could not locate")
@@ -82,7 +82,7 @@ function getCoord (){
 //IF MY LOCATION FOUND: pass coordinates to YELP to search for wine (API call)
 
 
-function callYelp(){
+function callGooglePlaces(){
     $.ajax({
     url: '/yelp/search',
     method: 'GET',
@@ -96,22 +96,24 @@ function callYelp(){
       console.log(returnData);
       var business = parsed_obj.business_name;
       console.log(business);
-      place_id = parsed_obj.place_id;
+      place_id = {placeId: parsed_obj.place_id};
       console.log(place_id);
        latt= parsed_obj.lat;
       console.log('latt', latt);
       lng= parsed_obj.lng;
       console.log('lng', lng);
-      // lt = parsed_obj.latitude;
-      // console.log(latitude);
-      // ld = parsed_obj.longitude;
-      // console.log(longitude);
-      // var address = parsed_obj.address;
-      // console.log(address);
+      var address = parsed_obj.address;
+      console.log("address", address);
+      //jquery dom stuff here
+      //click handler for db saving
+
+
       initMap();    
     }
   })
   }
+//write click handler function
+
 
 
 //ONCE COORDINATES from YELP ARE RECEIVED CALL GOOGLE DIRECTIONS
@@ -127,6 +129,9 @@ function initMap() {
         
         var desLatlng = new google.maps.LatLng(latt,lng);
         console.log('desLatlng', desLatlng); 
+
+        // var desId = new google.maps.Place('ChIJC2j55LNqkFQRRqBoRA_a_3A');
+        // console.log('desId', desId); 
                                       
         
         var directionsService = new google.maps.DirectionsService;
@@ -158,10 +163,9 @@ function initMap() {
           
           
           origin: myLatlng,
-          destination: desLatlng,
-         
-
-          travelMode: google.maps.TravelMode.WALKING
+          // destination: desLatlng,
+         destination: place_id,
+         travelMode: google.maps.TravelMode.WALKING
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);

@@ -12,32 +12,34 @@
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script src="//code.jquery.com/jquery.js"></script>
-      <!-- Bootstrap JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-      <script src="main.js"></script>
-    </head>
-    <body>
-      <div class="container">
-        <% if (typeof alerts !== 'undefined') { %>
-        <% for (key in alerts) { %>
-        <% alerts[key].forEach(function(thisMsg) { %>
-        <div class="alert alert-<%= key %>"><%= thisMsg %></div>
-        <% }); %>
-        <% } %>
-        <% } %>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+</head>
+<body>
+  <div class="container">
 
-        <%- body %>
+    <% if (typeof alerts !== 'undefined') { %>
+    <% for (key in alerts) { %>
+    <% alerts[key].forEach(function(thisMsg) { %>
 
-        
-        
-      </div> 
+    <div class="alert alert-<%= key %>"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><%= thisMsg %></div>
+    <% }); %>
+    <% } %>
+    <% } %>
 
-      <!-- jQuery -->
-      
-    </body>
-    </html>
+    <%- body %>
+
+
+
+  </div> 
+
+  <!-- jQuery -->
+
+</body>
+</html>

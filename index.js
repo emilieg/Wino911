@@ -9,10 +9,6 @@ var flash = require('connect-flash');
 
 
 
-
-
-
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(ejsLayout);
@@ -43,12 +39,13 @@ app.get('/', function(req, res) {
   res.render('index', {alerts: req.flash()});
 });
 
-
 app.get('/search', function(req, res) {
   if(req.currentUser) {
-    res.render('search');
+    res.render('search', {
+      // business: business
+    });
   } else {
-    req.flash('danger', 'You must be loggd in!'); 
+    req.flash('danger', ' You must be loggd in'); 
     res.redirect('/');
   }
 });

@@ -49,15 +49,13 @@ router.get('/search', function(req,res){
  request(url
 ,function(err, response,body){
   var parsed = JSON.parse(body);
-console.log(body);
+console.log(parsed);
   var returnData = {
     'business_name': parsed.results[0].name,
     'place_id': parsed.results[0].place_id,
     'lat': parsed.results[0].geometry.location.lat,
     'lng': parsed.results[0].geometry.location.lng,
-    // 'latitude': data.businesses[0].location.coordinate.latitude,
-    // 'longitude': data.businesses[0].location.coordinate.longitude,
-    // 'address': data.businesses[0].location.address[0],
+    'address': parsed.results[0].formatted_address,
 
   }
 res.send(returnData);
