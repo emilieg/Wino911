@@ -14,33 +14,58 @@ var yelp = new Yelp({
   token_secret: process.env.TOKEN_SECRET,
 });
 
-router.get('/search', function (req,res) {
+// router.get('/search', function (req,res) {
+//   var latitude = req.query.latitude;
+//   var longitude = req.query.longitude;
+//   var ll= latitude + ',' + longitude;
+//   console.log('ll' + ll);
+// yelp.search({ term: 'wine', ll: ll, sort: 1 })
+// .then(function (data) {
+
+//   var returnData = {
+//     'business_name': data.businesses[0].name,
+//     'latitude': data.businesses[0].location.coordinate.latitude,
+//     'longitude': data.businesses[0].location.coordinate.longitude,
+//     'address': data.businesses[0].location.address[0],
+//     'distance': data.businesses[0].distance
+//   }
+
+//   console.log('returnData:' +returnData);
+//   res.send(returnData);
+
+// })
+// .catch(function (err) {
+//   console.error(err);
+// });
+// }) 
+
+router.get('/search', function(req,res){
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
-  var ll= latitude + ',' + longitude;
-  console.log('ll' + ll);
-yelp.search({ term: 'wine', ll: ll, sort: 1 })
-.then(function (data) {
-
+  var api_call = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
+  var key = 'AIzaSyA-6VO2s5NXBqOPSUgJZf_G9IDVhwnS97E';
+  var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
+  console.log(url);
+ request(url
+,function(err, response,body){
+  var parsed = JSON.parse(body);
+console.log(body);
   var returnData = {
-    'business_name': data.businesses[0].name,
-    'latitude': data.businesses[0].location.coordinate.latitude,
-    'longitude': data.businesses[0].location.coordinate.longitude,
-    'address': data.businesses[0].location.address[0],
-    'distance': data.businesses[0].distance
+    'business_name': parsed.results[0].name,
+    'place_id': parsed.results[0].place_id,
+    'lat': parsed.results[0].geometry.location.lat,
+    'lng': parsed.results[0].geometry.location.lng,
+    // 'latitude': data.businesses[0].location.coordinate.latitude,
+    // 'longitude': data.businesses[0].location.coordinate.longitude,
+    // 'address': data.businesses[0].location.address[0],
+
   }
-
-  console.log('returnData:' +returnData);
-  res.send(returnData);
-
+res.send(returnData);
+  // var returnData = {
+  //   'name': body.results
+  // }
+ })
 })
-.catch(function (err) {
-  console.error(err);
-});
-}) 
-
-
-
 
 
 

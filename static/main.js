@@ -1,75 +1,42 @@
-// //Search for user location/geo locate
-
-// var latitude;
-// var longitude;
-
-
-//  $( document ).ready(function() {
-     
-//   var output = document.getElementById("out");
-//   console.log('doc loaded');
-
-//   if (!navigator.geolocation){
-//     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
-//     return;
-//   }
-
-//   $('#search_btn').click(function(e){
-
-//   $.ajax({
-//     url: '/yelp/search',
-//     method: 'GET',
-//     data: {
-//       longitude: longitude,
-//       latitude: latitude,
-//     },
-//     success: function(xhr, status, data){
-//       console.log(data);
-//     }
-//   })
-// });
-  
-// });
-
-
-// //1.fires first from script file in search.ejs
-// function loadMap(){
-//   navigator.geolocation.getCurrentPosition(geosuccess, error);
-// }
-
-// //geosuccess gets called next
-// function geosuccess(position) {
-//    latitude  = position.coords.latitude;
-//    longitude = position.coords.longitude;
-//    console.log('latitude: ' +latitude);
-//    console.log('longitude: '+ longitude);
-
-//     //API call to get google img
-//     var img = new Image();
-//     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-//   // fire initMap on success
-//   initMap();
-// };
-
-// var map;
-// function initMap() {
-//   map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: latitude, lng: longitude},
-//     zoom: 14
-//   });
-// }
-
-
-// function error() {
-//   output.innerHTML = "Unable to retrieve your location";
-// };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 var latitude;
 var longitude;
-var lt;
-var ld;
+var latt;
+var lng;
+var place;
+var place_id;
+// var des = new google.maps.Place('4f89212bf76dde31f092cfc14d7506555d85b5c7');
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  // map = new google.maps.Map(document.getElementById('map'), {
+  //     center: myLatlng2,
+  //     zoom: 15
+  //   });
+
+
+// function createMarker(place) {
+//   var placeLoc = place.geometry.location;
+//   var marker = new google.maps.Marker({
+//     map: map,
+//     position: place.geometry.location
+//   });
+
+//   google.maps.event.addListener(marker, 'click', function() {
+//     infowindow.setContent(place.name);
+//     infowindow.open(map, this);
+//   });
+// }
+
+ var marker = new google.maps.Marker({
+      map: map,
+      place: {
+        placeId: results[0].place_id,
+        location: results[0].geometry.location
+      }
+    });
+
 
 
 //PAGE LOADS 
@@ -91,9 +58,7 @@ function getCoord (){
     console.log("latitude & longitude: " + latitude + longitude);
     if (latitude && longitude){
     callYelp();
-    console.log('calling Yelp' + callYelp);
-    // initMap();
-    console.log('calling initMap' + initMap);
+  
   } else {
     throw ("could not locate")
   }
@@ -126,15 +91,23 @@ function callYelp(){
       latitude: latitude,
     },
     success: function(xhr, status, returnData){
+
       var parsed_obj = JSON.parse(returnData.responseText);
+      console.log(returnData);
       var business = parsed_obj.business_name;
       console.log(business);
-      lt = parsed_obj.latitude;
-      console.log(latitude);
-      ld = parsed_obj.longitude;
-      console.log(longitude);
-      var address = parsed_obj.address;
-      console.log(address);
+      place_id = parsed_obj.place_id;
+      console.log(place_id);
+       latt= parsed_obj.lat;
+      console.log('latt', latt);
+      lng= parsed_obj.lng;
+      console.log('lng', lng);
+      // lt = parsed_obj.latitude;
+      // console.log(latitude);
+      // ld = parsed_obj.longitude;
+      // console.log(longitude);
+      // var address = parsed_obj.address;
+      // console.log(address);
       initMap();    
     }
   })
@@ -144,8 +117,6 @@ function callYelp(){
 //ONCE COORDINATES from YELP ARE RECEIVED CALL GOOGLE DIRECTIONS
 
 
-
-
 function initMap() {
         if (latitude && longitude) {
         console.log('latitude' + latitude + 'longitude' + longitude);
@@ -153,8 +124,10 @@ function initMap() {
         var myLatlng = new google.maps.LatLng(latitude,longitude); 
         console.log(myLatlng);  
 
-        var desLatlng = new google.maps.LatLng(lt,ld);
-        console.log('desLatlng', desLatlng);                                  
+        
+        var desLatlng = new google.maps.LatLng(latt,lng);
+        console.log('desLatlng', desLatlng); 
+                                      
         
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -172,18 +145,23 @@ function initMap() {
           calculateAndDisplayRoute(directionsService, directionsDisplay);
         };
 
-        if (myLatlng) {
+        // if (myLatlng) {
           onChangeHandler();
-        }
+        // }
 
       }
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         console.log('inside calculateAndDisplayRoute');
+
         directionsService.route({
+          
+          
           origin: myLatlng,
           destination: desLatlng,
-          travelMode: google.maps.TravelMode.DRIVING
+         
+
+          travelMode: google.maps.TravelMode.WALKING
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
