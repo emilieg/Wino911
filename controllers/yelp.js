@@ -45,7 +45,7 @@ router.get('/search', function(req,res){
     res.send({message: "something went wrong with google maps api", error: err});
   }
   var parsed = JSON.parse(body);
-  console.log(parsed);
+  //console.log(parsed);
   var returnData = {
     'business_name': parsed.results[0].name,
     'place_id': parsed.results[0].place_id,
@@ -55,8 +55,9 @@ router.get('/search', function(req,res){
     'price_level': parsed.results[0].price_level,
 
   }
-
-  request('https://api.forecast.io/forecast/'+process.env.DARK_SKY_KEY+'/'+latitude+','+longitude, function(err,response, body){  
+  var darkSkyUrl = 'https://api.forecast.io/forecast/'+process.env.DARK_SKY_KEY+'/'+latitude+','+longitude;
+  console.log(darkSkyUrl);
+  request(darkSkyUrl, function(err,response, body){  
     console.log("req dark_Sky");
     if (err) {
       res.send({message: "something went wrong with dark sky", error: err});
@@ -71,6 +72,7 @@ router.get('/search', function(req,res){
       }
       console.log("darkSky: ", darkSky);
       res.send({dark_sky: darkSky, google_maps: returnData});
+      console.log('returnData', returnData);
     }  else {
       res.send(response);
     }
