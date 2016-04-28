@@ -72,7 +72,7 @@ router.get('/search', function(req,res){
       console.log("darkSky: ", darkSky);
       res.send({dark_sky: darkSky, google_maps: returnData});
     }  else {
-      res.send({message: "something went terribly wrong", error: response});
+      res.send(response);
     }
   })
  })
