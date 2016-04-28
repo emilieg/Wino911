@@ -60,7 +60,7 @@ router.get('/search', function(req,res){
     console.log("req dark_Sky");
     if (err) {
       res.send({message: "something went wrong with dark sky", error: err});
-    } else if(!err && response.statusCode == 200){
+    } else if(response.statusCode == 200){
  
       var parseDarkSky = JSON.parse(body);
       
@@ -72,7 +72,7 @@ router.get('/search', function(req,res){
       console.log("darkSky: ", darkSky);
       res.send({dark_sky: darkSky, google_maps: returnData});
     }  else {
-      res.send({message: "something went terribly wrong", error: err});
+      res.send({message: "something went terribly wrong", error: response});
     }
   })
  })
