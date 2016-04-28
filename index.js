@@ -21,6 +21,8 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
+
 app.use(function(req,res,next){
   console.log("FIRST USER",req.session.userId);
   if(req.session.userId){
@@ -53,12 +55,14 @@ app.get('/search', function(req, res) {
 
 
 app.get('/favorites',function(req,res){
+  if(req.currentUser) {
   db.favorite.findAll().then(function(favorites) {
     res.render('favorites', {
       favorites: favorites
     });
-  })
-})
+  });
+}
+});
 
 
 
@@ -74,15 +78,14 @@ app.post('/favorites', function(req,res){
     }}).spread(function(favorite,created){
      console.log("favorite:", favorite.business);
      user.addFavorite(favorite);
-    })
-  })
+    });
+  });
 });
 
-
-
-
-
+app.use('/dark_sky', require('./controllers/dark_sky'));
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
+
+
 
 app.listen(3000);

@@ -52,12 +52,25 @@ router.get('/search', function(req,res){
     'price_level': parsed.results[0].price_level,
 
   }
-res.send(returnData);
-  // var returnData = {
-  //   'name': body.results
-  // }
+
+  request('https://api.forecast.io/forecast/f8cfb18b542d7a98dbc35f73134d623d/'+latitude+','+longitude, function(err,response, body){  
+    console.log("req dark_Sky");
+    if(!err && response.statusCode == 200){
+ 
+      var parseDarkSky = JSON.parse(body);
+      
+      var darkSky = {
+        'temperature': parseDarkSky.currently.temperature,
+        'summary': parseDarkSky.currently.summary,
+        'icon': parseDarkSky.currently.icon,
+      }
+      console.log("darkSky: ", darkSky);
+      res.send({dark_sky: darkSky, google_maps: returnData});
+    }   
+  })
  })
 })
+
 
 
 

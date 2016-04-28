@@ -29,13 +29,14 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res) {
   var email = req.body.email;
   var password = req.body.password;
+  console.log("email", email);
 
 
   db.user.authenticate(email, password, function(err, user) {
     if(err) {
       res.send(err);
     } else if (user){
-      // console.log(req.session);
+      console.log(req.session);
       req.session.userId = user.id;
 
       res.redirect('/search');

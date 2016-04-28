@@ -28,6 +28,12 @@ h1 {
   text-align: center;
 }     
 
+.fa {
+    font-size: 200px;
+    color:#A80000 ;
+    text-align: center;
+}
+
 /*#container {
     background: rgba( 0, 0, 0, 0.10);
     margin-left:auto;
