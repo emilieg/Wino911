@@ -37,6 +37,7 @@ router.get('/search', function(req,res){
   var longitude = req.query.longitude;
   var api_call = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
   var key = 'AIzaSyA-6VO2s5NXBqOPSUgJZf_G9IDVhwnS97E';
+  // var key = process.env.KEY;
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
 
  request(url,function(err, response,body){

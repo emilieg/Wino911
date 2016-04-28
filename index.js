@@ -76,7 +76,9 @@ app.post('/favorites', function(req,res){
      user.addFavorite(favorite);
     })
   })
-})
+});
+
+
 
 
 
