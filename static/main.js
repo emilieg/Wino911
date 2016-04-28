@@ -6,38 +6,8 @@ var latt;
 var lng;
 var place;
 var place_id={};
-// var des = new google.maps.Place('4f89212bf76dde31f092cfc14d7506555d85b5c7');
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-  // map = new google.maps.Map(document.getElementById('map'), {
-  //     center: myLatlng2,
-  //     zoom: 15
-  //   });
-
-
-// function createMarker(place) {
-//   var placeLoc = place.geometry.location;
-//   var marker = new google.maps.Marker({
-//     map: map,
-//     position: place.geometry.location
-//   });
-
-//   google.maps.event.addListener(marker, 'click', function() {
-//     infowindow.setContent(place.name);
-//     infowindow.open(map, this);
-//   });
-// }
-
- // var marker = new google.maps.Marker({
- //      map: map,
- //      place: {
- //        placeId: results[0].place_id,
- //        location: results[0].geometry.location
- //      }
- //    });
-
-
 
 //PAGE LOADS 
 //FIND MY LOCATION
@@ -55,7 +25,7 @@ function getCoord (){
   function success(position) {
      latitude  = position.coords.latitude;
      longitude = position.coords.longitude;
-    console.log("latitude & longitude: " + latitude + longitude);
+
     if (latitude && longitude){
     callGooglePlaces();
   
@@ -93,30 +63,31 @@ function callGooglePlaces(){
     success: function(xhr, status, returnData){
 
       var parsed_obj = JSON.parse(returnData.responseText);
-      console.log(returnData);
+      
       var business = parsed_obj.business_name;
       console.log(business);
       place_id = {placeId: parsed_obj.place_id};
-      console.log(place_id);
+     
        latt= parsed_obj.lat;
-      console.log('latt', latt);
+   
       lng= parsed_obj.lng;
-      console.log('lng', lng);
+   
       var address = parsed_obj.address;
-      console.log("address", address);
-      //jquery dom stuff here
-      //click handler for db saving
+  
+      var price_level = parsed_obj.price_level;
 
+      //jquery dom stuff here
+      $('#business_name').html(business);
+      $('#business_address').html(address);
+      $('#price_level').html("Price Level: " + price_level);
 
       initMap();    
     }
   })
   }
-//write click handler function
 
 
-
-//ONCE COORDINATES from YELP ARE RECEIVED CALL GOOGLE DIRECTIONS
+//ONCE COORDINATES from Google Places ARE RECEIVED CALL GOOGLE DIRECTIONS
 
 
 function initMap() {
@@ -124,15 +95,10 @@ function initMap() {
         console.log('latitude' + latitude + 'longitude' + longitude);
                                            
         var myLatlng = new google.maps.LatLng(latitude,longitude); 
-        console.log(myLatlng);  
-
+       
         
         var desLatlng = new google.maps.LatLng(latt,lng);
-        console.log('desLatlng', desLatlng); 
 
-        // var desId = new google.maps.Place('ChIJC2j55LNqkFQRRqBoRA_a_3A');
-        // console.log('desId', desId); 
-                                      
         
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -146,7 +112,7 @@ function initMap() {
 
 
         var onChangeHandler = function() {
-          console.log('inside OnChangeHandler')
+
           calculateAndDisplayRoute(directionsService, directionsDisplay);
         };
 
@@ -157,15 +123,12 @@ function initMap() {
       }
 
       function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        console.log('inside calculateAndDisplayRoute');
 
         directionsService.route({
           
-          
           origin: myLatlng,
-          // destination: desLatlng,
-         destination: place_id,
-         travelMode: google.maps.TravelMode.WALKING
+          destination: place_id,
+          travelMode: google.maps.TravelMode.WALKING
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);

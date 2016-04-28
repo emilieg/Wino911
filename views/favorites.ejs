@@ -1,0 +1,9 @@
+<% include nav %>
+
+<% favorites.forEach(function(favorite){ %>
+<ul class="list-group">
+<li class="list-group-item"><%=favorite.business%><span><%=favorite.address%></span></li>
+<% }); %>
+</ul>
+
+
