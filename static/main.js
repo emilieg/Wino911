@@ -6,7 +6,7 @@ var latt;
 var lng;
 var place;
 var place_id={};
-
+var output = document.getElementById("out");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //PAGE LOADS 
@@ -40,7 +40,7 @@ function getCoord (){
 
 
   function geoFindMe() {
-  var output = document.getElementById("out");
+  // var output = document.getElementById("out");
 
   if (!navigator.geolocation){
     output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
@@ -69,7 +69,7 @@ function callGooglePlaces(){
       
       place_id = {placeId: google.place_id};
      
-       latt= google.lat;
+      latt= google.lat;
    
       lng= google.lng;
    
@@ -78,6 +78,7 @@ function callGooglePlaces(){
       var price_level = google.price_level;
 
       var weather = darkSky.summary;
+
       var temperature = darkSky.temperature;
       console.log(temperature);
 
@@ -86,6 +87,7 @@ function callGooglePlaces(){
       $('#business_address').html(address);
       $('#price_level').html("Price Level : " + price_level);
       $('#weather').html(weather);
+      $('#temperature').html(temperature);
 
       initMap();    
     }
