@@ -37,7 +37,7 @@ router.get('/search', function(req,res){
   var longitude = req.query.longitude;
   var api_call = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
   var key = 'AIzaSyA-6VO2s5NXBqOPSUgJZf_G9IDVhwnS97E';
-  // var key = process.env.KEY;
+  var dark_sky_key = process.env.DARK_SKY_KEY;
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
 
  request(url,function(err, response,body){
@@ -53,7 +53,7 @@ router.get('/search', function(req,res){
 
   }
 
-  request('https://api.forecast.io/forecast/f8cfb18b542d7a98dbc35f73134d623d/'+latitude+','+longitude, function(err,response, body){  
+  request('https://api.forecast.io/forecast/'+dark_sky_key+'/'+latitude+','+longitude, function(err,response, body){  
     console.log("req dark_Sky");
     if(!err && response.statusCode == 200){
  

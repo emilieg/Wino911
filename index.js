@@ -65,6 +65,10 @@ app.get('/favorites',function(req,res){
 });
 
 
+app.get('/about', function(req,res){
+  res.render('about')
+})
+
 
 app.post('/favorites', function(req,res){
   console.log("userID:", req.session.userId);
@@ -88,4 +92,4 @@ app.use('/auth', require('./controllers/auth'));
 
 
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000)
