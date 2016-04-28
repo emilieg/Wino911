@@ -41,6 +41,9 @@ router.get('/search', function(req,res){
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
 
  request(url,function(err, response,body){
+  if (err) {
+    res.send({message: "something went wrong with google maps api", error: err});
+  }
   var parsed = JSON.parse(body);
   console.log(parsed);
   var returnData = {
@@ -55,7 +58,9 @@ router.get('/search', function(req,res){
 
   request('https://api.forecast.io/forecast/'+dark_sky_key+'/'+latitude+','+longitude, function(err,response, body){  
     console.log("req dark_Sky");
-    if(!err && response.statusCode == 200){
+    if (err) {
+      res.send({message: "something went wrong with dark sky", error: err});
+    } else if(!err && response.statusCode == 200){
  
       var parseDarkSky = JSON.parse(body);
       
@@ -67,7 +72,7 @@ router.get('/search', function(req,res){
       console.log("darkSky: ", darkSky);
       res.send({dark_sky: darkSky, google_maps: returnData});
     }  else {
-      res.send(err);
+      res.send({message: "something went terribly wrong", error: err});
     }
   })
  })
