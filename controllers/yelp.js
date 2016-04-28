@@ -56,7 +56,7 @@ router.get('/search', function(req,res){
 
   }
 
-  request('https://api.forecast.io/forecast/'+dark_sky_key+'/'+latitude+','+longitude, function(err,response, body){  
+  request('https://api.forecast.io/forecast/'+process.env.DARK_SKY_KEY+'/'+latitude+','+longitude, function(err,response, body){  
     console.log("req dark_Sky");
     if (err) {
       res.send({message: "something went wrong with dark sky", error: err});
