@@ -36,7 +36,7 @@ router.get('/search', function(req,res){
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
   var api_call = 'https://maps.googleapis.com/maps/api/place/textsearch/json?';
-  var key = 'AIzaSyA-6VO2s5NXBqOPSUgJZf_G9IDVhwnS97E';
+  var key = process.env.GOOGLE_PLACES;
   var dark_sky_key = process.env.DARK_SKY_KEY;
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
 
@@ -45,7 +45,7 @@ router.get('/search', function(req,res){
     res.send({message: "something went wrong with google maps api", error: err});
   }
   var parsed = JSON.parse(body);
-  //console.log(parsed);
+  console.log("parsedGoogle:", parsed.results);
   var returnData = {
     'business_name': parsed.results[0].name,
     'place_id': parsed.results[0].place_id,
