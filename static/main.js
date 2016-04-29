@@ -91,7 +91,7 @@ function callGooglePlaces(){
       $('#business_address').html(address);
       $('#price_level').html("Price Level : " + price_level);
       $('#weather').html(weather);
-      $('#temperature').html(temperature);
+      $('#temperature').html(temperature );
 
       initMap();    
     }
@@ -119,6 +119,7 @@ function initMap() {
           zoom: 14,
           center: {lat: 41.85, lng: -87.65}
         });
+        //check if map has a callback
         
         directionsDisplay.setMap(map);
 
@@ -131,6 +132,7 @@ function initMap() {
         // if (myLatlng) {
           onChangeHandler();
         // }
+        // $("#loading").hide;
 
       }
 
@@ -144,6 +146,7 @@ function initMap() {
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            $("i").fadeOut();
           } else {
             window.alert('Directions request failed due to ' + status);
           }

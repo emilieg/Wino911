@@ -6,34 +6,42 @@
     <h1>Find Wine Now</h1>
   </div>
 
-<div class="row">
+  <div class="row">
+    <div class="col-md-3 col-md-offset-9 pull-right">
+      <div id="weather"></div>
+      <div id="temperature"></div>
+      <img src="glass-with-wine-red.png" id="img">
+    </div>  
+  </div>    
+  <div class="row">
+    <div class="col-md-12">
+      <div id="#loading">
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+        <span class="sr-only">Loading...</span>
+      </div> 
+    </div>  
+  </div>       
   <div class="col-md-12">
-    <div id="map"></div>
-    <div id="out"></div>
-
+      <div id="map"></div>
+      <div id="out"></div>
   </div>  
 
-<!-- <div id="container">
-  <div id="glass">
-    <div id="water"></div>
-  </div>
-</div> -->
-
-<div id="weather"></div>
-<div id="temperature"></div>
-
-<div id="business_info">
-  <h4 id="business_name"></h4><span id="price_level"></span>
-  <h6 id="business_address"></h6>
-  <button class="btn btn-default" id="add_to_fav"><span class="glyphicon glyphicon-heart"></span></button>
-</div>
-
-</div> 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD3mObrN3ysWRoXeSZUYRaU5PyPKnk7d4&libraries=places" async defer></script>
 
 
-<script src="/search.js"></script>
+
+
+    <div id="business_info">
+      <h4 id="business_name"></h4><span id="price_level"></span>
+      <h6 id="business_address"></h6>
+      <button class="btn btn-default" id="add_to_fav"><span class="glyphicon glyphicon-heart"></span></button>
+    </div>
+
+ 
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD3mObrN3ysWRoXeSZUYRaU5PyPKnk7d4&libraries=places" async defer></script>
+
+
+  <script src="/search.js"></script>
 
 
 
