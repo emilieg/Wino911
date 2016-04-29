@@ -75,7 +75,6 @@ app.post('/favorites', function(req,res){
   db.user.findOrCreate({where:{
     id: req.session.userId
   }}).spread(function(user, created){
-    console.log("name:", user);
     db.favorite.findOrCreate({where:{
       business: req.body.business,
       address: req.body.address
@@ -86,7 +85,7 @@ app.post('/favorites', function(req,res){
   });
 });
 
-app.use('/dark_sky', require('./controllers/dark_sky'));
+
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
 

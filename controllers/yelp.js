@@ -7,30 +7,6 @@ var flash = require('connect-flash');
 var router = express.Router();
 
 
-// router.get('/search', function (req,res) {
-//   var latitude = req.query.latitude;
-//   var longitude = req.query.longitude;
-//   var ll= latitude + ',' + longitude;
-//   console.log('ll' + ll);
-// yelp.search({ term: 'wine', ll: ll, sort: 1 })
-// .then(function (data) {
-
-//   var returnData = {
-//     'business_name': data.businesses[0].name,
-//     'latitude': data.businesses[0].location.coordinate.latitude,
-//     'longitude': data.businesses[0].location.coordinate.longitude,
-//     'address': data.businesses[0].location.address[0],
-//     'distance': data.businesses[0].distance
-//   }
-
-//   console.log('returnData:' +returnData);
-//   res.send(returnData);
-
-// })
-// .catch(function (err) {
-//   console.error(err);
-// });
-// }) 
 
 router.get('/search', function(req,res){
   var latitude = req.query.latitude;

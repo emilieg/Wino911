@@ -2,36 +2,33 @@
 <% include nav %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 col-sm-12">
     <h2>Find Wine Now</h2>
   </div>
 </div>  
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12 col-sm-12">
       <div id="temperature" class="pull-right"></div>
       <span><img src="glass-with-wine-red.png" id="img"class="pull-right"></span>
       <div id="weather" class="pull-right"></div>
     </div>  
   </div>    
-  <div class="row">
-   
-      <div id="#loading" lass="col-md-12">
-        <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+    <div class="row">
+      <div class="col-md-4 col-sm-4"></div>
+      <div class="col-md-4 col-sm-4">
+        <div><div><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i></div></div>
         <span class="sr-only">Loading...</span>
+        
+      </div>
+        <div class="col-md-4 col-sm-4"></div>
       </div> 
-    
-  </div> 
-  <div>      
-    <div class="col-md-12">
-      <div id="map"></div>
+    <div>
+      <div id="map"></div>  
       <div id="out"></div>
-    </div> 
-  </div>   
-
-
+    </div>   
 <div class="row">
-    <div id="business_info">
+    <div class="col-md-12"id="business_info">
       <h4 id="business_name"></h4><span id="price_level"></span>
       <h6 id="business_address"></h6>
       <button class="btn btn-default" id="add_to_fav"><span class="glyphicon glyphicon-heart"></span></button>
@@ -41,8 +38,6 @@
  
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDD3mObrN3ysWRoXeSZUYRaU5PyPKnk7d4&libraries=places" async defer></script>
-
-
   <script src="/search.js"></script>
 
 

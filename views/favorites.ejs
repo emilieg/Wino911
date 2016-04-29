@@ -2,7 +2,7 @@
 
 <% favorites.forEach(function(favorite){ %>
 <ul class="list-group">
-<li class="list-group-item"><%=favorite.business%><span><%=favorite.address%></span></li>
+<li class="list-group-item business"><%=favorite.business %><span class="address"><%= favorite.address%></span></li>
 <% }); %>
 </ul>
 

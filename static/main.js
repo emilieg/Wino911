@@ -92,7 +92,7 @@ function callGooglePlaces(){
       if (price_level !== undefined ) {
       $('#price_level').html("Price Level : " + price_level);
        };
-      $('#weather').html(weather);
+      //$('#weather').html(weather);
       $('#temperature').html(temperature + "°");
         if (temperature >= 60){ 
        $("#img").attr("src","glass-with-wine-yellow.png"); 
@@ -134,10 +134,8 @@ function initMap() {
           calculateAndDisplayRoute(directionsService, directionsDisplay);
         };
 
-        // if (myLatlng) {
           onChangeHandler();
-        // }
-        // $("#loading").hide;
+
 
       }
 
@@ -151,7 +149,7 @@ function initMap() {
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
-            // $("i").fadeOut();
+            $("i").fadeOut();
           } else {
             window.alert('Directions request failed due to ' + status);
           }
