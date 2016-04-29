@@ -21,4 +21,6 @@ Bootstrap & CSS styling
 Favorites list (add delete button & restyle)
 Goole Maps (add markers for more place options)
 
+Mock Up: https://ninjamock.com/s/Z2V8S
+
 
