@@ -23,6 +23,9 @@ html, body {
 h1 {
   text-align: center;
 } 
+h2 {
+  text-align: center;  
+}
 
 #business_info {
   text-align: center;
@@ -32,6 +35,19 @@ h1 {
     font-size: 200px;
     color:#A80000 ;
     text-align: center;
+}
+
+#loading {
+    
+    display: inline-block;
+    text-align: center;
+}
+ 
+#temperature {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: bottom;
 }
 
 /*#container {
