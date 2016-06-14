@@ -4,6 +4,11 @@ https://wino911.herokuapp.com/
 **Wino911** helps you find a place that serves wine. Directions are provided to guide you to the closest destination so you can quench your thirst. If you like the place you can save it to your favorites list.
 The local temperature display helps you decide whether you should drink red or white.  
 
+  
+Screenshots: ![Alt](img/wino911.png "Phone and Desktop")
+
+
+
 # Technonlogy:
 * *Node.js*, server
 * *Express*, back-end app
