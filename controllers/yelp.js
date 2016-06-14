@@ -6,8 +6,6 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var router = express.Router();
 
-
-
 router.get('/search', function(req,res){
   var latitude = req.query.latitude;
   var longitude = req.query.longitude;
@@ -16,7 +14,6 @@ router.get('/search', function(req,res){
   var dark_sky_key = process.env.DARK_SKY_KEY;
   var url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location='+latitude+','+longitude+'&radius=500&query=wine&key='+ key
 
- console.log("google places request:", url);
  request(url,function(err, response,body){
   if (err) {
     res.send({message: "something went wrong with google maps api", error: err});
@@ -56,9 +53,6 @@ router.get('/search', function(req,res){
   })
  })
 })
-
-
-
 
 
 

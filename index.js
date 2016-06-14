@@ -7,8 +7,6 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 
-
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(ejsLayout);
@@ -20,8 +18,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
-
 
 app.use(function(req,res,next){
   console.log("FIRST USER",req.session.userId);
@@ -53,7 +49,6 @@ app.get('/search', function(req, res) {
   }
 });
 
-
 app.get('/favorites',function(req,res){
   if(req.currentUser) {
   db.favorite.findAll().then(function(favorites) {
@@ -64,11 +59,9 @@ app.get('/favorites',function(req,res){
 }
 });
 
-
 app.get('/about', function(req,res){
   res.render('about')
 })
-
 
 app.post('/favorites', function(req,res){
   console.log("userID:", req.session.userId);
@@ -85,10 +78,8 @@ app.post('/favorites', function(req,res){
   });
 });
 
-
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
-
 
 
 app.listen(process.env.PORT || 3000)
