@@ -86,6 +86,9 @@ app.post('/favorites', function(req,res){
   });
 });
 
+
+//create route here that will delete the favorite business using the biz id
+
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
 
