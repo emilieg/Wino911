@@ -39,6 +39,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/search', function(req, res) {
+  console.log("current user on search route: ", req.currentUser);
   if(req.currentUser) {
     res.render('search', {
       // business: business
@@ -50,8 +51,14 @@ app.get('/search', function(req, res) {
 });
 
 app.get('/favorites',function(req,res){
+  console.log("favorites current user is: ", req.session.userId);
   if(req.currentUser) {
-  db.favorite.findAll().then(function(favorites) {
+  // db.favorite.findAll().then(function(favorites) {
+    db.favorite.findAll({
+      where: {
+        userId: req.session.userId
+      }
+    }).then(function(favorites) {
     res.render('favorites', {
       favorites: favorites
     });
@@ -65,7 +72,8 @@ app.get('/about', function(req,res){
 
 app.post('/favorites', function(req,res){
   console.log("userID:", req.session.userId);
-  db.user.findOrCreate({where:{
+  db.user.findOrCreate({
+    where: {
     id: req.session.userId
   }}).spread(function(user, created){
     db.favorite.findOrCreate({where:{
