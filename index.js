@@ -27,6 +27,7 @@ app.use(function(req,res,next){
       res.locals.currentUser = user;
       next();
     });
+    console.log("user in the use function: ", req.session.userId);
   } else {
     req.currentUser = false;
     res.locals.currentUser = false;
@@ -53,7 +54,6 @@ app.get('/search', function(req, res) {
 app.get('/favorites',function(req,res){
   console.log("favorites current user is: ", req.session.userId);
   if(req.currentUser) {
-  // db.favorite.findAll().then(function(favorites) {
     db.favorite.findAll({
       where: {
         userId: req.session.userId
@@ -62,6 +62,7 @@ app.get('/favorites',function(req,res){
     res.render('favorites', {
       favorites: favorites
     });
+    console.log("favorites are: ", favorites);
   });
 }
 });

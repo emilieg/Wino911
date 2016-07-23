@@ -1,7 +1,7 @@
 $(function() {
   console.log("search")
 
-  //write click handler function
+  //add to favorites list
   $( "#add_to_fav" ).click(function(e) {
     e.preventDefault();
     $(this).find('.glyphicon').css("color", "#ff4d4d");
