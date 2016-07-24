@@ -6,6 +6,7 @@ var ejsLayout = require("express-ejs-layouts");
 var request = require('request');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
+var router = express.Router();
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
@@ -67,6 +68,18 @@ app.get('/favorites',function(req,res){
 }
 });
 
+app.delete('/favorites/:id', function(req,res){
+  //code here to delete a favorite from db
+  //data will come via req.params.id 
+  console.log("Req.Param ID: ", req.params.id);
+  db.favorite.findById(req.params.id).then(function(favorite){
+    favorite.destroy().then(function(){ res.send({msg: 'deleted'})});
+  }).catch(function(err){
+    res.send({msg: 'error'});
+  })
+});
+
+
 app.get('/about', function(req,res){
   res.render('about')
 })
@@ -88,10 +101,11 @@ app.post('/favorites', function(req,res){
 });
 
 
-//create route here that will delete the favorite business using the biz id
+
 
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
+// app.use('/favorites', require('./controllers/favorites'));
 
 
 app.listen(process.env.PORT || 3000)

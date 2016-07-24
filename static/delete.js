@@ -1,13 +1,13 @@
-$(function(){
-  $('#delete-favorite').click(e) {
-    e.preventDefault();
-    $ajax({
-      url: '/favorites/:id',
-      method: 'DELETE',
-      data: {
-        business: business_name,
-        address: business_address,
-      }
-    })
-  }
-})
+// $(function(){
+//   $('#delete-favorite').click(function(e) {
+//     console.log("AJAX CALL");
+//     var url = $(this).attr('href');
+//     e.preventDefault();
+//     $.ajax({
+//       url: url,
+//       method: 'DELETE'
+//     }).done(function(){
+//       window.location.href='/favorites'
+//     })
+//   });
+// })

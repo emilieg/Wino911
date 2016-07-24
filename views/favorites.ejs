@@ -2,7 +2,8 @@
 <% favorites.forEach(function(favorite){ %>
 <ul class="list-group">
   <li class="list-group-item business">
-   <button type="button" class="btn btn-danger btn-sm" id="delete-favorite">x</button>
+   <a href="/favorites/<%=favorite.id %>" type="button" class="btn btn-danger btn-sm" id="delete-favorite">x</a>
+   
     <%=favorite.business %>
     <span class="address"><%= favorite.address%></span>
   </li>
