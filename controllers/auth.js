@@ -14,7 +14,8 @@ router.post('/signup', function(req, res) {
       name: req.body.name, 
       password: req.body.password}
   }).spread(function(user, created) {
-    res.redirect('/');
+    req.session.userId = user.id;
+    res.redirect('/search');
   }).catch(function(err){
     res.send(err);
     console.log(err);
