@@ -8,9 +8,13 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var router = express.Router();
 
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(ejsLayout);
+
+
 app.use(express.static(__dirname + '/static'));
 app.use(flash());
 
@@ -34,7 +38,8 @@ app.use(function(req,res,next){
     res.locals.currentUser = false;
     next();
   }
-})
+});
+
 
 app.get('/', function(req, res) {
   res.render('index', {alerts: req.flash()});
@@ -69,8 +74,8 @@ app.get('/favorites',function(req,res){
 });
 
 app.delete('/favorites/:id', function(req,res){
-  //code here to delete a favorite from db
-  //data will come via req.params.id 
+  // code here to delete a favorite from db
+  // data will come via req.params.id 
   console.log("Req.Param ID: ", req.params.id);
   db.favorite.findById(req.params.id).then(function(favorite){
     favorite.destroy().then(function(){ res.send({msg: 'deleted'})});
@@ -106,6 +111,7 @@ app.post('/favorites', function(req,res){
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
 // app.use('/favorites', require('./controllers/favorites'));
+
 
 
 app.listen(process.env.PORT || 3000)
