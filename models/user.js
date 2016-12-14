@@ -6,10 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     name: DataTypes.STRING,
     password: {
-    type:  DataTypes.STRING,
-    validate: {
-      len: [8, 99]
-      }
+    type:  DataTypes.STRING
     }
   }, {
     classMethods: {

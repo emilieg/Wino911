@@ -110,7 +110,7 @@ app.post('/favorites', function(req,res){
 
 app.use('/yelp', require('./controllers/yelp'));
 app.use('/auth', require('./controllers/auth'));
-
+app.use('/favorites', require('./controllers/favorites'));
 
 
 

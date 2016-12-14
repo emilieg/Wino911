@@ -7,6 +7,7 @@ router.get('/signup', function(req, res) {
 });
 
 router.post('/signup', function(req, res) {
+  // console.log("request: ", req);
   db.user.findOrCreate({
     where: {email: req.body.email
     },
@@ -15,6 +16,7 @@ router.post('/signup', function(req, res) {
       password: req.body.password}
   }).spread(function(user, created) {
     req.session.userId = user.id;
+    console.log("in spread");
     res.redirect('/search');
   }).catch(function(err){
     res.send(err);
