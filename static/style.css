@@ -44,6 +44,9 @@ h2 {
     text-align: center;
 }
 
+.container {
+  text-align: center;
+}
 .fa-spin {
     
     /*margin-left: 33%;*/
